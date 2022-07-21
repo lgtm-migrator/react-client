@@ -24,7 +24,13 @@ export const SettingsDialog: React.FC = () => {
   return (
     <Fragment>
       <IconButton onClick={showModal} icon={'cog'} className={'p-1 mx-2 '} variant={'outline-dark'} />
-      <CommonModal show={show} onHide={hideModal} titleIcon={'cog'} title={'settings.title'} showCloseButton={true}>
+      <CommonModal
+        show={show}
+        modalSize={'lg'}
+        onHide={hideModal}
+        titleIcon={'cog'}
+        title={'settings.title'}
+        showCloseButton={true}>
         <Modal.Body>
           <Tab.Container defaultActiveKey={'global'}>
             <Container>

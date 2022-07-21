@@ -589,16 +589,19 @@
     "editor": {
       "label": "Editor",
       "ligatures": {
-        "label": "Ligatures"
+        "label": "Ligatures",
+        "help": "(De)Activates support for ligatures in the editor."
       },
       "smartPaste": {
-        "label": "Smart Paste"
+        "label": "Smart Paste",
+        "help": "Smart paste detects common formats (like tables) when pasting content into the editor and formats them as markdown."
       }
     },
     "global": {
       "label": "Global",
       "darkMode": {
         "label": "Dark mode",
+        "help": "Enforces the (de)activation of the dark mode for the app or lets the browser decide.",
         "dark": {
           "tooltip": "Switch to dark mode",
           "label": "On"
@@ -613,7 +616,8 @@
         }
       },
       "language": {
-        "label": "Language"
+        "label": "Language",
+        "help": "The primary user interface language"
       }
     }
   }
