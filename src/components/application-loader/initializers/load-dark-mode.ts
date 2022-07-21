@@ -1,11 +1,10 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 import { setDarkMode } from '../../../redux/dark-mode/methods'
 import { Logger } from '../../../utils/logger'
-import type { DarkModeConfig } from '../../../redux/dark-mode/types'
 import { isClientSideRendering } from '../../../utils/is-client-side-rendering'
 
 const logger = new Logger('Dark mode initializer')
@@ -16,16 +15,10 @@ const logger = new Logger('Dark mode initializer')
  *
  * @return A promise that resolves as soon as the dark mode has been loaded.
  */
-export const loadDarkMode = async (): Promise<void> => {
-  return new Promise<void>((resolve) => {
-    setDarkMode(
-      fetchDarkModeFromLocalStorage() ??
-        determineDarkModeBrowserSettings() ?? {
-          darkMode: false
-        }
-    )
-    resolve()
-  })
+export const loadDarkMode = (): void => {
+  const forcedMode = fetchDarkModeFromLocalStorage()
+  const browserMode = determineDarkModeBrowserSettings()
+  setDarkMode(forcedMode, browserMode)
 }
 
 /**
@@ -33,12 +26,19 @@ export const loadDarkMode = async (): Promise<void> => {
  *
  * @return {@code true} if the local storage has saved that the user prefers dark mode. {@code false} if the user doesn't or if the value could be read from local storage.
  */
-const fetchDarkModeFromLocalStorage = (): boolean => {
+const fetchDarkModeFromLocalStorage = (): boolean | undefined => {
   if (!isClientSideRendering()) {
     return false
   }
   try {
-    return window.localStorage.getItem('nightMode') === 'true'
+    const colorScheme = window.localStorage.getItem('forcedColorScheme')
+    if (colorScheme === 'dark') {
+      return true
+    } else if (colorScheme === 'light') {
+      return false
+    } else {
+      return undefined
+    }
   } catch (error) {
     logger.error('Loading from local storage failed', error)
     return false
@@ -50,19 +50,14 @@ const fetchDarkModeFromLocalStorage = (): boolean => {
  *
  * @return {@code true} if the browser has reported that the user prefers dark mode. {@code false} if the user doesn't or if the browser doesn't support the `prefers-color-scheme` media query.
  */
-const determineDarkModeBrowserSettings = (): DarkModeConfig | undefined => {
+const determineDarkModeBrowserSettings = (): boolean => {
   if (!isClientSideRendering()) {
-    return {
-      darkMode: false
-    }
+    return false
   }
   try {
-    const mediaQueryResult = window.matchMedia('(prefers-color-scheme: dark)').matches
-    return {
-      darkMode: mediaQueryResult
-    }
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
   } catch (error) {
     logger.error('Can not determine setting from browser', error)
-    return undefined
+    return false
   }
 }

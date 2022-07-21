@@ -1,5 +1,5 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
@@ -19,6 +19,7 @@ import { ReadOnlyModeButton } from './read-only-mode-button'
 import { NewNoteButton } from './new-note-button'
 import { useApplicationState } from '../../../hooks/common/use-application-state'
 import { NoteType } from '../../../redux/note-details/types/note-details'
+import { SettingsDialog } from '../../layout/settings-dialog/settings-dialog'
 
 export enum AppBarMode {
   BASIC,
@@ -41,7 +42,7 @@ export const AppBar: React.FC<AppBarProps> = ({ mode }) => {
           <EditorViewMode />
           <SyncScrollButtons />
         </ShowIf>
-        <DarkModeButton />
+        <SettingsDialog />
         <ShowIf condition={mode === AppBarMode.EDITOR}>
           <ShowIf condition={noteFrontmatter.type === NoteType.SLIDE}>
             <SlideModeButton />

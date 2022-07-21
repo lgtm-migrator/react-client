@@ -1,31 +1,33 @@
 /*
- * SPDX-FileCopyrightText: 2021 The HedgeDoc developers (see AUTHORS file)
+ * SPDX-FileCopyrightText: 2022 The HedgeDoc developers (see AUTHORS file)
  *
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
 import type { Reducer } from 'redux'
-import { saveToLocalStorage } from './methods'
 import type { DarkModeConfig, DarkModeConfigActions } from './types'
 import { DarkModeConfigActionType } from './types'
 
-const initalState: DarkModeConfig = {
-  darkMode: false
+const initialState: DarkModeConfig = {
+  forcedToDark: undefined,
+  browserIsDark: false
 }
 
 export const DarkModeConfigReducer: Reducer<DarkModeConfig, DarkModeConfigActions> = (
-  state: DarkModeConfig = initalState,
+  state: DarkModeConfig = initialState,
   action: DarkModeConfigActions
 ) => {
-  let darkModeConfigState: DarkModeConfig
   switch (action.type) {
-    case DarkModeConfigActionType.SET_DARK_MODE:
-      darkModeConfigState = {
+    case DarkModeConfigActionType.SET_FORCED_DARK_MODE:
+      return {
         ...state,
-        darkMode: action.darkMode
+        forcedToDark: action.forcedToDark
       }
-      saveToLocalStorage(darkModeConfigState)
-      return darkModeConfigState
+    case DarkModeConfigActionType.SET_DARK_MODE:
+      return {
+        forcedToDark: action.forcedToDark,
+        browserIsDark: action.browserIsDark
+      }
     default:
       return state
   }

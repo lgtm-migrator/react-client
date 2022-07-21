@@ -313,10 +313,6 @@
       "view": "View",
       "both": "Both"
     },
-    "darkMode": {
-      "switchToDark": "Switch to Dark Mode",
-      "switchToLight": "Switch to Light Mode"
-    },
     "appBar": {
       "new": "New",
       "syncScroll": {
@@ -576,6 +572,49 @@
     "noteCreationFailed": {
       "title": "Note could not be created",
       "description": "The note could not be created. Maybe you don't have permission to create notes."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "util": {
+      "onoff": {
+        "on": {
+          "label": "On"
+        },
+        "off": {
+          "label": "Off"
+        }
+      }
+    },
+    "editor": {
+      "label": "Editor",
+      "ligatures": {
+        "label": "Ligatures"
+      },
+      "smartPaste": {
+        "label": "Smart Paste"
+      }
+    },
+    "global": {
+      "label": "Global",
+      "darkMode": {
+        "label": "Dark mode",
+        "dark": {
+          "tooltip": "Switch to dark mode",
+          "label": "On"
+        },
+        "light": {
+          "tooltip": "Switch to light mode",
+          "label": "Off"
+        },
+        "browser": {
+          "tooltip": "Let browser decide",
+          "label": "Browser"
+        }
+      },
+      "language": {
+        "label": "Language"
+      }
     }
   }
 }
